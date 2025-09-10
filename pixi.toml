@@ -1,0 +1,15 @@
+[project]
+authors = ["carlca <carl.caulkett@gmail.com>"]
+channels = ["conda-forge", "https://conda.modular.com/max-nightly"]
+description = "preset_parser"
+name = "preset_parser"
+platforms = ["osx-arm64", "linux-64"]
+
+[tasks]
+t1 = "mojo parser.mojo Diffusion.bwpreset"
+tests = "pixi run t1"
+default = "pixi run tests"
+
+[dependencies]
+max = "*"
+modular = ">=25.6.0.dev2025090205,<26"
