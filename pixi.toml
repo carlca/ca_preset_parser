@@ -1,4 +1,4 @@
-[project]
+[workspace]
 authors = ["carlca <carl.caulkett@gmail.com>"]
 channels = ["conda-forge", "https://conda.modular.com/max-nightly"]
 description = "preset_parser"
@@ -12,4 +12,4 @@ default = "pixi run tests"
 
 [dependencies]
 max = "*"
-modular = ">=25.6.0.dev2025090205,<26"
+modular = ">=25.6.1.0,<27"
