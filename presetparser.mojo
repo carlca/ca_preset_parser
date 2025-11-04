@@ -82,10 +82,10 @@ struct PresetParser:
 
    fn byte_to_hex(self, b: Byte) -> String:
       var value = b.__int__()
-      var high_nibble = (value >> 4) & 0x0F
-      var low_nibble = value & 0x0F
-      var hex_chars = "0123456789abcdef"
-      return String(hex_chars[high_nibble], hex_chars[low_nibble])
+      var high = (value >> 4) & 0x0F
+      var low = value & 0x0F
+      var hex = "0123456789abcdef"
+      return String(hex[high], hex[low])
 
    fn read_next_size_and_chunk(self, f: FileHandle, mut pos: Int) raises -> ReadResult:
       var int_chunk = self.read_int_chunk(f, pos)
