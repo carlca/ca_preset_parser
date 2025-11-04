@@ -26,7 +26,8 @@ struct PresetParser:
    fn __init__(out self):
       self.debug = False
 
-   fn process_preset(self, file_name: String) raises:
+   fn process_preset(mut self, file_name: String, debug: Bool = False) raises:
+      self.debug = debug
       var pos: Int = 0x36
 
       var f = open(file_name, "r")
@@ -70,14 +71,21 @@ struct PresetParser:
       var result = self.read_from_file(f, pos, 32, True)
       print("")
       for b in range(len(result.data)):
-         print(String("{0:02x} ").format(result.data[b]), end="")
+         print(String("{0} ").format(self.byte_to_hex(b)), end="")
       print()
       for b in range(len(result.data)):
          if result.data[b] >= 0x31:
-            print(String("{} ").format(chr(result.data[b].__int__())), end="")
+            print(String(".{0}.").format(chr(result.data[b].__int__())), end="")
          else:
             print("   ", end="")
       print()
+
+   fn byte_to_hex(self, b: Byte) -> String:
+      var value = b.__int__()
+      var high_nibble = (value >> 4) & 0x0F
+      var low_nibble = value & 0x0F
+      var hex_chars = "0123456789abcdef"
+      return String(hex_chars[high_nibble], hex_chars[low_nibble])
 
    fn read_next_size_and_chunk(self, f: FileHandle, mut pos: Int) raises -> ReadResult:
       var int_chunk = self.read_int_chunk(f, pos)
