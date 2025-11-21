@@ -17,7 +17,7 @@ struct ReadResult(Boolable, Stringable, Movable):
       return String(
          "pos: ", self.pos, ", ",
          "size: ", self.size, ", ",
-         "data: [", data[:-1] if data else "", "]"
+         "data: [", String(data[:-1]) if data else "", "]"
       )
 
 struct PresetParser:
