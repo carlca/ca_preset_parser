@@ -1,4 +1,4 @@
-alias Bytes = List[Byte]
+comptime Bytes = List[Byte]
 
 @fieldwise_init
 struct ReadResult(Boolable, Stringable, Movable):
@@ -71,7 +71,7 @@ struct PresetParser:
       var result = self.read_from_file(f, pos, 32, True)
       print("")
       for b in range(len(result.data)):
-         print(String("{0} ").format(self.byte_to_hex(b)), end="")
+         print(String("{0} ").format(self.byte_to_hex(UInt8(b))), end="")
       print()
       for b in range(len(result.data)):
          if result.data[b] >= 0x31:
@@ -80,12 +80,19 @@ struct PresetParser:
             print("   ", end="")
       print()
 
+   # fn byte_to_hex(self, b: Byte) -> String:
+   #    var value = b.__int__()
+   #    var high = (value >> 4) & 0x0F
+   #    var low = value & 0x0F
+   #    var hex = "0123456789abcdef"
+   #    return String(byte1=hex[high], byte2=hex[low])
+
    fn byte_to_hex(self, b: Byte) -> String:
-      var value = b.__int__()
-      var high = (value >> 4) & 0x0F
-      var low = value & 0x0F
-      var hex = "0123456789abcdef"
-      return String(hex[high], hex[low])
+      var s = hex(b.__int__(), prefix="")  # String
+      # For a single byte, hex() will produce 1–2 chars; pad if needed
+      if s.__len__() == 1:
+         return "0" + s
+      return s
 
    fn read_next_size_and_chunk(self, f: FileHandle, mut pos: Int) raises -> ReadResult:
       var int_chunk = self.read_int_chunk(f, pos)
@@ -100,7 +107,7 @@ struct PresetParser:
       pos = new_read.pos
       var size: UInt32 = 0
       for i in range(4):
-         size |= new_read.data[i].cast[DType.uint32]() << ((3 - i) * 8)
+         size |= new_read.data[i].cast[DType.uint32]() << UInt32(((3 - i) * 8))
       return ReadResult(pos, Int(size), Bytes())
 
    @staticmethod
@@ -112,7 +119,7 @@ struct PresetParser:
    @staticmethod
    fn read_from_file(f: FileHandle, pos: Int, size: Int, advance: Bool) raises -> ReadResult:
       try:
-         _ = f.seek(pos)
+         _ = f.seek(UInt64(pos))
       except:
          return ReadResult(0, 0, Bytes())
       var data: Bytes = f.read_bytes(size)
