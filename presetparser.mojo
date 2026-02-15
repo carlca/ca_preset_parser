@@ -80,13 +80,6 @@ struct PresetParser:
             print("   ", end="")
       print()
 
-   # fn byte_to_hex(self, b: Byte) -> String:
-   #    var value = b.__int__()
-   #    var high = (value >> 4) & 0x0F
-   #    var low = value & 0x0F
-   #    var hex = "0123456789abcdef"
-   #    return String(byte1=hex[high], byte2=hex[low])
-
    fn byte_to_hex(self, b: Byte) -> String:
       var s = hex(b.__int__(), prefix="")  # String
       # For a single byte, hex() will produce 1–2 chars; pad if needed
