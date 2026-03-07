@@ -10,16 +10,6 @@ struct ReadResult(Boolable, Writable, Movable):
    fn __bool__(self) -> Bool:
       return self.size > 0
 
-   # fn __str__(self) -> String:
-   #    var data = String()
-   #    for b in self.data:
-   #       data.write(b, " ")
-   #    return String(
-   #       "pos: ", self.pos, ", ",
-   #       "size: ", self.size, ", ",
-   #       "data: [", String(data[:-1]) if data else "", "]"
-   #    )
-
    fn write_to(self, mut writer: Some[Writer]):
       var data = String()
       for b in self.data:
