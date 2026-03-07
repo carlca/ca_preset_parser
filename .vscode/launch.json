@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "mojo-lldb",
+      "request": "launch",
+      "name": "Mojo: Debug current Mojo file",
+      "description": "Launch and debug the Mojo file that is active on the editor when the debug session starts.",
+      "mojoFile": "${file}",
+      "args": ["Diffusion.bwpreset"],
+      "env": [],
+      "cwd": "${workspaceFolder}",
+      "runInTerminal": true
+    }
+  ]
+}
