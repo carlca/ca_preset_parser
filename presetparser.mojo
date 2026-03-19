@@ -17,7 +17,7 @@ struct ReadResult(Boolable, Writable, Movable):
       var written = String(
          "pos: ", self.pos, ", ",
          "size: ", self.size, ", ",
-         "data: [", String(data[:-1]) if data else "", "]"
+         "data: [", String(data[byte=:-1]) if data else "", "]"
       )    
       writer.write(written)
 

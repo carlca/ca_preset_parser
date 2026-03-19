@@ -9,6 +9,6 @@ fn main() raises:
       return
    var app_dir = dirname(args[0])
    var filename = join(app_dir, args[1])
-   var pp = presetparser.PresetParser()
+   var pp = PresetParser()
    pp.process_preset(filename, False)   # 2nd param is debug flag
    print()
