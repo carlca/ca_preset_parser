@@ -2,7 +2,7 @@ from presetparser import PresetParser
 from std.sys.arg import argv
 from std.os.path import dirname, join
 
-fn main() raises:
+def main() raises:
    var args = argv()
    if len(args) == 0:
       print("Usage: mojo preset_parser <preset file>")
