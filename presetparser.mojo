@@ -85,7 +85,7 @@ struct PresetParser:
    def byte_to_hex(self, b: Byte) -> String:
       var s = hex(b.__int__(), prefix="")  # String
       # For a single byte, hex() will produce 1–2 chars; pad if needed
-      if s.__len__() == 1:
+      if s.byte_length() == 1:
          return "0" + s
       return s
 
