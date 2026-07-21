@@ -114,7 +114,7 @@ struct PresetParser:
    @staticmethod
    def read_from_file(f: FileHandle, pos: Int, size: Int, advance: Bool) raises -> ReadResult:
       try:
-         _ = f.seek(UInt64(pos))
+         _ = f.seek(pos)         
       except:
          return ReadResult(0, 0, Bytes())
       var data: Bytes = f.read_bytes(size)
