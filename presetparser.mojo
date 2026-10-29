@@ -18,7 +18,7 @@ struct ReadResult(Boolable, Writable, Movable):
          "pos: ", self.pos, ", ",
          "size: ", self.size, ", ",
          "data: [", String(data[byte=:-1]) if data else "", "]"
-      )    
+      )
       writer.write(written)
 
 
@@ -37,7 +37,7 @@ struct PresetParser:
          var result = self.read_key_and_value(f, pos)
          pos = result.pos
          if result.size == 0: break
-      f.close()
+      f^.close()
 
    def read_key_and_value(self, f: FileHandle, mut pos: Int) raises -> ReadResult:
       var skips = self.get_skip_size(f, pos)
@@ -114,7 +114,7 @@ struct PresetParser:
    @staticmethod
    def read_from_file(f: FileHandle, pos: Int, size: Int, advance: Bool) raises -> ReadResult:
       try:
-         _ = f.seek(pos)         
+         _ = f.seek(pos)
       except:
          return ReadResult(0, 0, Bytes())
       var data: Bytes = f.read_bytes(size)
